@@ -1,6 +1,6 @@
 require 'rspec'
 require 'game'
-
+require 'player'
 describe 'Game' do
   it 'creates a game' do
     test_game = Game.new
@@ -13,5 +13,12 @@ describe 'Game' do
   it 'randomly orders 52 cards in the deck' do
     test_game = Game.new
     test_game.deck.length.should eq 52
+  end
+end
+
+describe 'Player' do
+  it 'creates a player' do
+    test_player = Player.new(1)
+    test_player.should be_an_instance_of Player
   end
 end
