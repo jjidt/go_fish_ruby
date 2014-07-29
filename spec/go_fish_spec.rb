@@ -1,6 +1,7 @@
 require 'rspec'
 require 'game'
 require 'player'
+
 describe 'Game' do
   it 'creates a game' do
     test_game = Game.new
