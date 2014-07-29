@@ -8,8 +8,8 @@ class Player
     @name
   end
 
-  def set_hand(hand)
-    hand.each {|x| @hand << x}
+  def set_hand(hands)
+    hands.each {|x| @hand << x}
   end
 
   def hand

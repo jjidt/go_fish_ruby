@@ -31,6 +31,22 @@ describe 'Game' do
     test_game = Game.new(1,2)
     test_game.turn.should eq 0
   end
+
+  describe '.check_hand' do
+    it 'takes a card value and moves the other players cards to the current players hand' do
+      test_game = Game.new(1,2)
+      test_game.players[1].set_hand([Card.new(["Q", "H"]), Card.new(["Q", "S"]), Card.new(["J", "H"])])
+      test_game.check_hand("Q")
+      test_game.players[0].hand.length.should eq 2
+    end
+  end
+  describe '.go_fish' do
+    it 'determines whether the other player possesses a card' do
+      test_game = Game.new(1,2)
+      test_game.players[1].set_hand([Card.new(["Q", "H"]), Card.new(["Q", "S"]), Card.new(["J", "H"])])
+      test_game.go_fish("10").should eq nil
+    end
+  end
 end
 
 describe 'Player' do

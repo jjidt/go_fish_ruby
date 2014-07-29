@@ -34,4 +34,13 @@ class Game
   def turn
     @turn
   end
+
+  def go_fish(check_card)
+    players[@turn ^ 1].hand.find_index {|card| check_card == card.value}
+  end
+
+  def check_hand(check_card)
+    players[@turn ^ 1].hand.delete_if {|card| players[@turn].hand << card if card.value == check_card}
+
+  end
 end
