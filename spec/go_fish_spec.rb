@@ -40,11 +40,21 @@ describe 'Game' do
       test_game.players[0].hand.length.should eq 2
     end
   end
+
   describe '.go_fish' do
     it 'determines whether the other player possesses a card' do
       test_game = Game.new(1,2)
       test_game.players[1].set_hand([Card.new(["Q", "H"]), Card.new(["Q", "S"]), Card.new(["J", "H"])])
       test_game.go_fish("10").should eq nil
+    end
+  end
+
+  describe '.draw_card' do
+    it 'draws a card from the deck and places in the players hand' do
+      test_game = Game.new(1,2)
+      test_game.draw_card
+      test_game.players[0].hand.length.should be 1
+      test_game.deck.length.should eq 51
     end
   end
 end

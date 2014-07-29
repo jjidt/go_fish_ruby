@@ -27,6 +27,10 @@ class Game
     @players[1].set_hand(next_seven)
   end
 
+  def draw_card
+    players[@turn].set_hand([@deck.deck.shift])
+  end
+
   def toggle_turn
     @turn ^= 1
   end
