@@ -9,17 +9,29 @@ class Game
     player2 = Player.new(name2)
     @players = [player1, player2]
     @deck = Deck.new
+    @turn = 0
   end
+
   def deck
     @deck.deck
   end
+
   def players
     @players
   end
+
   def deal
     first_seven = @deck.deck.slice!(0..6)
     next_seven = @deck.deck.slice!(0..6)
     @players[0].set_hand(first_seven)
     @players[1].set_hand(next_seven)
+  end
+
+  def toggle_turn
+    @turn ^= 1
+  end
+
+  def turn
+    @turn
   end
 end

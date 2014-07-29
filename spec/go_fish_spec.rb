@@ -26,6 +26,11 @@ describe 'Game' do
     test_game.deal
     test_game.players[0].hand.length.should eq 7
   end
+
+  it 'starts the game with player 1' do
+    test_game = Game.new(1,2)
+    test_game.turn.should eq 0
+  end
 end
 
 describe 'Player' do
