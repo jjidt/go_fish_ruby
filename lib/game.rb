@@ -1,8 +1,3 @@
-require 'player'
-require 'deck'
-require 'card'
-require 'pry'
-
 class Game
   def initialize(name1, name2)
     player1 = Player.new(name1)
@@ -39,8 +34,8 @@ class Game
     @turn
   end
 
-  def go_fish(check_card)
-    players[@turn ^ 1].hand.find_index {|card| check_card == card.value}
+  def has_card(check_card, player_number)
+    players[player_number].hand.find_index {|card| check_card == card.value}
   end
 
   def check_hand(check_card)

@@ -41,11 +41,11 @@ describe 'Game' do
     end
   end
 
-  describe '.go_fish' do
+  describe '.has_card' do
     it 'determines whether the other player possesses a card' do
       test_game = Game.new(1,2)
       test_game.players[1].set_hand([Card.new(["Q", "H"]), Card.new(["Q", "S"]), Card.new(["J", "H"])])
-      test_game.go_fish("10").should eq nil
+      test_game.has_card("10", 0).should eq nil
     end
   end
 
@@ -65,6 +65,40 @@ describe 'Player' do
     test_player.should be_an_instance_of Player
   end
 
+  describe 'hand_sort' do
+    it 'sorts the hand' do
+      test_game = Game.new(1,2)
+      card1 = Card.new(["K", "H"])
+      card2 = Card.new(["Q", "S"])
+      card3 = Card.new(["8", "H"])
+      test_game.players[1].set_hand([card2, card3, card1])
+      test_game.players[1].hand_sort
+      test_game.players[1].hand.should eq [card3, card2, card1]
+    end
+  end
+
+  describe 'remove_4s' do
+    it 'checks a players hand for 4 of a kind and removes them from the hand' do
+      test_game = Game.new(1,2)
+      card1 = Card.new(["K", "H"])
+      card2 = Card.new(["K", "S"])
+      card3 = Card.new(["K", "H"])
+      card4 = Card.new(["K", "H"])
+      card5 = Card.new(["A", "H"])
+      test_game.players[1].set_hand([card1, card2, card3, card4, card5])
+      test_game.players[1].remove_4s
+      test_game.players[1].hand.should eq [card5]
+    end
+    it 'returns nil if it does not remove anything' do
+      test_game = Game.new(1,2)
+      card1 = Card.new(["K", "H"])
+      card2 = Card.new(["K", "S"])
+      card3 = Card.new(["K", "H"])
+      card5 = Card.new(["A", "H"])
+      test_game.players[1].set_hand([card1, card2, card3, card5])
+      test_game.players[1].remove_4s.should eq nil
+    end
+  end
 end
 
 describe 'Card' do
