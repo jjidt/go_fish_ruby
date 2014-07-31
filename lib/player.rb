@@ -26,12 +26,16 @@ class Player
   def remove_4s
     @remove_card = ""
     new_arr = @hand.map{|card| card.value}
-    new_arr.each {|card_value| remove_card = card_value if new_arr.count(card_value) == 4 }
-    @hand.reject!{|card| card.value == remove_card}
+    new_arr.each {|card_value| @remove_card = card_value if new_arr.count(card_value) == 4 }
+    @hand.reject!{|card| card.value == @remove_card}
   end
 
   def points
     @points
+  end
+
+  def add_point
+    @points += 1
   end
 
   def remove_card

@@ -21,7 +21,7 @@ new_game = Game.new(player_1_name, player_2_name)
 new_game.deal
 system("clear")
 
-while new_game.deck.length > 0 || new_game.players[0].hand.length > 0 || new_game.players[1].hand.length > 0 do
+while new_game.deck.length > 0 && new_game.players[0].hand.length > 0 && new_game.players[1].hand.length > 0 do
   new_game.players[new_game.turn].hand_sort
   puts "#{new_game.players[new_game.turn].name} here is your current hand:"
   new_game.players[new_game.turn].hand.each {|card| puts card.value + suit_changer[card.suit]}
@@ -38,17 +38,36 @@ while new_game.deck.length > 0 || new_game.players[0].hand.length > 0 || new_gam
   if new_game.has_card(card_choice, new_game.turn ^ 1)
     new_game.check_hand(card_choice)
     puts "#{new_game.players[new_game.turn ^ 1].name} gives you all of their #{card_choice}'s"
+    if new_game.players[new_game.turn].remove_4s
+      puts "You scored a point by collecting all of the #{new_game.players[new_game.turn].remove_card}'s"
+      new_game.players[new_game.turn].add_point
+    end
   else
     puts "GO FISH!"
     new_game.draw_card
     puts "You drew a #{new_game.players[new_game.turn].hand[-1].value} of #{suit_changer[new_game.players[new_game.turn].hand[-1].suit]}"
+    if new_game.players[new_game.turn].remove_4s
+      puts "You scored a point by collecting all of the #{new_game.players[new_game.turn].remove_card}'s"
+      new_game.players[new_game.turn].add_point
+    end
     new_game.toggle_turn
   end
-  if new_game.players[new_game.turn].remove_4s
-    new_game.players[new_game.turn].remove_4s
-    puts "You scored a point by collecting all of the #{new_game.players[new_game.turn].remove_card}'s"
-  end
+
   puts "Press enter to advance"
   gets.chomp
   system("clear")
+end
+puts "   _________    __  _________   ____ _    ________
+  / ____/   |  /  |/  / ____/  / __   |  / / ____/ __ \
+ / / __/ /| | / /|_/ / __/    / / / / | / / __/ / /_/ /
+/ /_/ / ___ |/ /  / / /___   / /_/ /| |/ / /___/ _, _/
+ ____/_/  |_/_/  /_/_____/     ___/ |___/_____/_/ |_|"
+puts "#{new_game.players[0].name}: You scored #{new_game.players[0].points} Points"
+puts "#{new_game.players[1].name}: You scored #{new_game.players[1].points} Points"
+if new_game.players[0].points > new_game.players[1].points
+  puts "#{new_game.players[0].name} Wins!"
+elsif new_game.players[1].points > new_game.players[0].points
+  puts "#{new_game.players[1].name} Wins!"
+else
+  puts "Tie Game!"
 end
